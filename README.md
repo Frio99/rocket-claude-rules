@@ -8,13 +8,15 @@ https://raw.githubusercontent.com/Frio99/rocket-claude-rules/main/shadowrocket-c
 
 下载后添加自己的代理节点或订阅，选中可用节点，再把 `shadowrocket-claude-dns.conf` 设为使用中的配置并重新连接。配置文件**不包含节点、订阅地址或账号凭据**。
 
+手机通过 GitHub 地址导入失败时，先连接已有节点，在 Shadowrocket 首页把「全局路由」临时切到「代理」，再到「配置」页重新添加上面的地址；导入成功后切回「配置」路由模式。也可试用[备用下载地址](https://cdn.jsdelivr.net/gh/Frio99/rocket-claude-rules@main/shadowrocket-claude-dns.conf)。如果提示格式错误，请记录错误原文；换下载地址通常无法解决格式问题。
+
 这份配置保留了原有的国内直连、国外代理分流，并把 Claude 相关域名优先交给代理。主 DNS 使用 Google DoH，备用使用 Cloudflare DoH，均经当前代理节点转发；关闭系统 DNS 回退和 IPv6，劫持常见的硬编码 53 端口 DNS，并拦截已知 HTTPDNS。微信的两个解析端点仍直连。
 
 局域网、部分 Apple 域名和配置中明确直连的流量有例外，因此一次 DNS 检测结果不能代表所有 App 的行为。HTTPDNS 拦截也可能影响个别 App 的加载；出现问题时可切回原配置或为该服务单独添加例外。此配置不能保证第三方服务账号的可用性。
 
 ## 打开网站明显变慢时
 
-严格版会让 DNS 查询经过代理，可能增加网页首次打开的等待时间。可试用[速度优先版](https://raw.githubusercontent.com/Frio99/rocket-claude-rules/main/shadowrocket-claude-dns-balanced.conf)，它只将明确走 `DIRECT` 的域名改用系统 DNS，其他 DNS 设置和 Claude 代理规则保持一致。请在**同一个节点、同一个网络**下分别测试两版。速度优先版可能让本地运营商 DNS 出现在检测结果中；如果目标是不出现本地 DNS，请继续使用上面的严格版。
+严格版会让 DNS 查询经过代理，可能增加网页首次打开的等待时间。可试用[速度优先版](https://raw.githubusercontent.com/Frio99/rocket-claude-rules/main/shadowrocket-claude-dns-balanced.conf)，或使用它的[备用下载地址](https://cdn.jsdelivr.net/gh/Frio99/rocket-claude-rules@main/shadowrocket-claude-dns-balanced.conf)。它只将明确走 `DIRECT` 的域名改用系统 DNS，其他 DNS 设置和 Claude 代理规则保持一致。请在**同一个节点、同一个网络**下分别测试两版。速度优先版可能让本地运营商 DNS 出现在检测结果中；如果目标是不出现本地 DNS，请继续使用上面的严格版。
 
 若两版都慢，检查 Shadowrocket 是否处于「配置」路由模式，并换一个延迟较低的节点测试。下载速度慢通常不是 DNS 设置造成的。
 
